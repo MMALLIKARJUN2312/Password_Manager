@@ -50,7 +50,6 @@ class PasswordManager extends Component {
 
   addPasswordRecord = e => {
     e.preventDefault()
-    console.log('in ad ')
     const {inputUrl, inputName, inputPassword} = this.state
     const newPasswordRecord = {
       id: uuidv4(),
@@ -60,13 +59,15 @@ class PasswordManager extends Component {
     }
     this.setState(prevState => ({
       passwordRecords: [...prevState.passwordRecords, newPasswordRecord],
+      inputUrl: '',
+      inputName: '',
+      inputPassword: '',
     }))
   }
 
   render() {
-    const {showPassword} = this.state
+    const {showPassword, inputUrl, inputName, inputPassword} = this.state
     const searchResults = this.getSearchRecords()
-    console.log(this.state, searchResults)
 
     return (
       <div className="app-container">
@@ -103,6 +104,7 @@ class PasswordManager extends Component {
                     className="input"
                     type="text"
                     placeholder="Enter Website"
+                    value={inputUrl}
                     onChange={this.onInputUrlChange}
                   />
                 </div>
@@ -118,6 +120,7 @@ class PasswordManager extends Component {
                     className="input"
                     type="text"
                     placeholder="Enter Username"
+                    value={inputName}
                     onChange={this.onInputNameChange}
                   />
                 </div>
@@ -133,15 +136,12 @@ class PasswordManager extends Component {
                     className="input"
                     type="password"
                     placeholder="Enter Password"
+                    value={inputPassword}
                     onChange={this.onInputPasswordChange}
                   />
                 </div>
                 <div className="button-container">
-                  <button
-                    className="add-button"
-                    type="submit"
-                    onClick={this.addPasswordRecord}
-                  >
+                  <button className="add-button" type="submit">
                     Add
                   </button>
                 </div>
